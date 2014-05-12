@@ -51,7 +51,6 @@ public class RefreshServlet extends HttpServlet {
     private final static String END_CONTAINER = "</span>";
     private final static String START_NAME = "<th colspan=\"2\" align=\"center\">";
     private final static String END_NAME = "</th>";
-    private final HttpClient httpClient = HttpClients.createDefault();
     private final static List<String> MATRICULES = new ArrayList<>();
 
     {
@@ -75,6 +74,7 @@ public class RefreshServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         properties.load(RefreshServlet.class.getResourceAsStream("/config.properties"));
+        final HttpClient httpClient = HttpClients.createDefault();
 
         GenericDao<Character> dao = new GenericDao<>(Character.class);
         List<Character> characters = dao.getEntities();
