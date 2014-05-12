@@ -69,7 +69,7 @@
             <% } %>
         </table>
 
-    <div class="row"><div class="col-md-8"><span class="glyphicon glyphicon-info-sign"></span><span class="label label-danger">   Une ligne en route signifie que le personnage peut jouer dans les 3 prochaines heures</span></div></div>
+    <div class="row"><div class="col-md-8"><span class="glyphicon glyphicon-info-sign"></span><span class="label label-warning">   Une ligne en rouge signifie que le personnage peut jouer dans les 3 prochaines heures</span></div></div>
 </div>
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
