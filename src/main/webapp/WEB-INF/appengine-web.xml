@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-    <application>vmruntime-demo</application>
-    <version>nonvm-version-4</version>
+    <application>demange-activator</application>
+    <version>1</version>
     <threadsafe>true</threadsafe>
     
-    <module>default</module>
+    <!--<module>default</module>-->
     <!--vm>true</vm>
     <manual-scaling>
         <instances>1</instances>

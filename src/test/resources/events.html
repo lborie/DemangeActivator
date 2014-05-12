@@ -1,0 +1,400 @@
+
+
+
+<head>
+    <title>Démange II - Evenement</title>
+    <link rel="SHORTCUT ICON" href="http://www.demange-le-jeu.com/demange-v2/./img/favicon.ico">
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+
+    <script type='text/javascript' src='./swfobject.js'></script>
+
+    <!-- javascript pour jquery -->
+    <script type='text/javascript' src='./jquery/jquery-1.3.2.js'></script>
+
+    <!-- menu accordeon information -->
+    <script type='text/javascript' src='./jquery/accordion_menu/chili-1.7.pack.js'></script>
+    <script type='text/javascript' src='./jquery/accordion_menu/jquery.easing.js'></script>
+    <script type='text/javascript' src='./jquery/accordion_menu/jquery.dimensions.js'></script>
+
+    <!-- accordeon information -->
+    <script type='text/javascript' src='./jquery/accordion/jquery.accordion.js'></script>
+
+    <!-- datepicker information -->
+    <script type='text/javascript' src='./jquery/datepicker/ui.core.js'></script>
+    <script type='text/javascript' src='./jquery/datepicker/ui.datepicker.js'></script>
+
+    <!-- formulaire information -->
+    <script type='text/javascript' src='./jquery/forms/jquery.validate.js'></script>
+
+    <!-- slider information -->
+    <script type='text/javascript' src='./jquery/slider/jquery-easing.1.2.pack.js'></script>
+    <script type='text/javascript' src='./jquery/slider/jquery-easing-compatibility.1.2.pack.js' ></script>
+    <script type='text/javascript' src='./jquery/slider/coda-slider.1.1.1.pack.js'></script>
+
+    <!-- css information -->
+    <link type="text/css" href="./default.css" rel="stylesheet" >
+    <link type="text/css" href="./formulaire.css" rel="stylesheet" >
+    <link type="text/css" href="./jquery/css/ui-darkness/jquery-ui-1.7.1.custom.css" rel="stylesheet" >
+
+    <!-- construction des composant jquery -->
+    <script type='text/javascript' src='./jquery/accordian_info.js'></script>
+    <script type='text/javascript' src='./jquery/tabs_info.js'></script>
+    <script type='text/javascript' src='./jquery/form_info.js'></script>
+    <script type='text/javascript' src='./jquery/date_info.js'></script>
+    <script type='text/javascript' src='./jquery/menu_accordion_info.js'></script>
+
+    <!-- tips information -->
+    <script  type='text/javascript' src='./jquery/tips/jtip.js'></script>
+    <link type="text/css" href="./jquery/tips/tips_css.css" rel="stylesheet" >
+
+
+
+
+</head>
+
+
+
+<body class="header_jouer">
+
+<div class="conteneur_tab">
+<div class="cont_tab">
+<table class="tableau_form" align="center" width="100%">
+    <tr>
+        <th align="center">Information sur le personnage : Kanithael</th>
+    </tr>
+</table>
+<br />
+<table class="table_perso" width="40%" cellpadding="1" cellspacing="0" border="0" align="center">
+    <tr>
+        <td>
+            <table class="tableau_form" align="center" width="100%">
+                <tr valign="middle">
+                    <td  align="center">
+                        <form  id="form_evenement_btm" name="form_evenement_btm" action="?id_perso=2022" method="post">
+                            <input  type="submit"  name="evenement" id="evenement" value="Evènements" title="Voir ses evènements"/>
+                        </form>
+                    </td>
+                    <td align="center">
+                        <form id="form_cv" name="form_cv" action="perso_cv.php?id_perso=2022" method="post">
+                            <input type="submit"  name="cv" id="cv" value="CV" title="Voir son CV"/>
+                        </form>
+                    </td>
+                    <td align="center">
+                        <form id="form_objets" name="form_objets" action="perso_inv.php?id_perso=2022" method="post">
+                            <input type="submit"  name="objets" id="objets" value="Objets" title="Voir ses objets"/>
+                        </form>
+                    </td>
+                    <td  align="center">
+                        <form id="form_description" name="form_description" action="perso_description.php?id_perso=2022" method="post">
+                            <input type="submit"  name="description" id="description" value="Description" title="Voir sa description"/>
+                        </form>
+                    </td>
+                    <td  align="center">
+                        <input type="button" value="Mail" onClick="javascript: myWindow = window.open('bal_send.php?cible=&id_concerne=2022', 'action', 'toolbar=no,width=700,height=700,resizable=yes,scrollbars=yes'); myWindow.focus();return false;">
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<br />
+<table class="table_perso" align="center" width="60%" cellpadding="1" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table class="tableau_form" align="center" width="100%">
+                <tr>
+                    <th colspan="2" align="center">Kanithael</th>
+                </tr>
+                <tr>
+                    <td align="center" valign="middle">
+                        <table align="center" cellpadding="0" cellspacing="0">
+                            <tr valign="middle">
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td align="center" valign="middle">
+                        <table align="center" cellpadding="0" cellspacing="0">
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label></label></td>
+                                <td width="50%" align="left"><span class="clair"></span></td>
+                            </tr>
+
+
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label>Matricule :</label></td>
+                                <td width="50%" align="left"><span class="clair">2022</span></td>
+                            </tr>
+
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label>Race :</label></td>
+                                <td width="50%" align="left"><span class="clair">Ange</span></td>
+                            </tr>
+
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label>Sexe :</label></td>
+                                <td width="50%" align="left"><span class="clair">Mâle</span></td>
+                            </tr>                                                <tr valign="middle">
+                            <td width="50%" align="right"><label>Etat du personnage :</label></td>
+                            <td width="50%" align="left"><span class="clair">Actif</span></td>
+                        </tr>
+
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label>Expérience :</label></td>
+                                <td width="50%" align="left"><span class="clair">547</span></td>
+                            </tr>
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label>Richesse :</label></td>
+                                <td width="50%" align="left"><span class="clair">Joint les deux bouts</span></td>
+                            </tr>
+                            <tr valign="middle">
+                                <td width="50%" align="right"><label>Entrée en jeu le :</label></td>
+                                <td width="50%" align="left"><span class="clair">01-04-2014</span></td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class="tableau_form" align="center" width="100%">
+                <tr valign="middle">                                        <td  align="center">
+                    <a href="perso_cv.php?id_perso=2022">Voir son curriculum vitae</a>
+                </td>                                            <td  align="center">
+                    <a href="perso_inv.php?id_perso=2022">Voir ses objets</a>
+                </td>                                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<br />                	<table class="table_perso" width="60%" align="center" cellpadding="1" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table class="tableau_form" align="center" width="100%">                                        <tr>
+                <th align="center">Membre des factions :</th>
+            </tr>                                        <tr valign="middle">
+                <td width="100%" align="center">
+                    <a href="faction_presentation.php?id_faction=949" target="_self">Collège d'Instruction et d'Eveil Lumineux : Elève</a>
+                </td>
+            </tr>                                        <tr valign="middle">
+                <td width="100%" align="center">
+                    <a href="faction_presentation.php?id_faction=2" target="_self">Nation Angélique : Ange</a>
+                </td>
+            </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<br />				<table class="tableau_form" align="center" width="100%">
+    <tr valign="middle">					</tr>
+</table>
+<br /><br />
+
+<table class='tableau_form' width='80%' border=0 cellpadding=0 cellspacing=0>
+    <tr>
+        <td align='center' width='33%'>
+        </td>
+        <td align='center' width='33%'>
+            <form action = 'perso_events_view.php' method = 'GET'>
+                Evènements par page: <input type=text size=3 value='10' name='nb' />
+                <input type = 'hidden' name = 'id_perso' value = 2022>
+                <input type = 'hidden' name = 'page' value =0>
+                <input type='submit' value ='ok'>
+            </form>
+        </td>
+        <td align='center' width='33%'>
+            <form action = 'perso_events_view.php' method = 'GET'>
+                <input type = 'hidden' name = 'id_perso' value =2022>
+                <input type = 'hidden' name = 'page' value = 1>
+                <input type = 'hidden' name = 'nb' value = 10>
+                <input type = 'submit' value = ' >> '>
+            </form>
+        </td>
+    </tr>
+</table>
+<table class="table_perso" width="95%"  align="center" cellpadding="1" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table class="tableau_form" width="100%" align="center" cellpadding="5" cellspacing="0" id="abo_actu">
+                <tr valign="middle">
+                    <th colspan="5" align="center">Evènement du personnage Kanithael</th>
+                </tr>
+                <tr valign="middle">
+                    <th width="20%" align="center">Date</th>
+                    <th width="15%" align="center">Catégorie</th>
+                    <th width="45%" align="center">Evènement</th>
+                    <th width="20%" colspan="2" align="center">Personnages concernés</th>
+                </tr>
+
+
+                <tr><td valign='top' class='class="list2"'  align='center'>
+                    11-05-2014 18:25:55
+                </td>
+                    <td valign='top' class='class="list2"' align='center'>
+                        Don d'objet
+                    </td>
+                    <td class='class="list2"' valign='top'>
+                        Arthéos a fait un don<br>Destinataire : Kanithael / Objet : Bottes en cuir de buffle / Quantite : 1
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'><a href='perso_events_view.php?id_perso=597'
+                                                                             target='_blank' class='submenu'>597</a>
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>2022
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2_c"'  align='center'>
+                    11-05-2014 14:21:39
+                </td>
+                    <td valign='top' class='class="list2_c"' align='center'>
+                        Combat
+                    </td>
+                    <td class='class="list2_c"' valign='top'>
+                        Kanithael s'est entrainé.<br>
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2"'  align='center'>
+                    11-05-2014 14:21:36
+                </td>
+                    <td valign='top' class='class="list2"' align='center'>
+                        Combat
+                    </td>
+                    <td class='class="list2"' valign='top'>
+                        Kanithael s'est entrainé.<br>
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2_c"'  align='center'>
+                    11-05-2014 14:18:01
+                </td>
+                    <td valign='top' class='class="list2_c"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2_c"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 91 / Y = 362 / Plan = Terre
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2"'  align='center'>
+                    11-05-2014 14:17:59
+                </td>
+                    <td valign='top' class='class="list2"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 92 / Y = 363 / Plan = Terre
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2_c"'  align='center'>
+                    11-05-2014 14:17:52
+                </td>
+                    <td valign='top' class='class="list2_c"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2_c"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 93 / Y = 363 / Plan = Terre
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2"'  align='center'>
+                    11-05-2014 14:17:45
+                </td>
+                    <td valign='top' class='class="list2"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 94 / Y = 364 / Plan = Terre
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2_c"'  align='center'>
+                    11-05-2014 14:17:38
+                </td>
+                    <td valign='top' class='class="list2_c"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2_c"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 95 / Y = 365 / Plan = Terre
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2"'  align='center'>
+                    11-05-2014 14:17:36
+                </td>
+                    <td valign='top' class='class="list2"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 95 / Y = 366 / Plan = Terre
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>
+                <tr><td valign='top' class='class="list2_c"'  align='center'>
+                    10-05-2014 21:24:04
+                </td>
+                    <td valign='top' class='class="list2_c"' align='center'>
+                        Mouvement
+                    </td>
+                    <td class='class="list2_c"' valign='top'>
+                        s'est déplacé.<br>Nouvelle position: X = 95 / Y = 367 / Plan = Terre
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>2022
+                    </td>
+                    <td class='class="list2_c"' valign='top' align='center'>&nbsp;
+                    </td>
+                </tr>                                </table>
+        </td>
+    </tr>
+</table>
+
+
+<table class='tableau_form' width='80%' border=0 cellpadding=0 cellspacing=0>
+    <tr>
+        <td align='center' width='33%'>
+        </td>
+        <td align='center' width='33%'>
+            <form action = 'perso_events_view.php' method = 'GET'>
+                Evènements par page: <input type=text size=3 value='10' name='nb' />
+                <input type = 'hidden' name = 'id_perso' value = 2022>
+                <input type = 'hidden' name = 'page' value =0>
+                <input type='submit' value ='ok'>
+            </form>
+        </td>
+        <td align='center' width='33%'>
+            <form action = 'perso_events_view.php' method = 'GET'>
+                <input type = 'hidden' name = 'id_perso' value =2022>
+                <input type = 'hidden' name = 'page' value = 1>
+                <input type = 'hidden' name = 'nb' value = 10>
+                <input type = 'submit' value = ' >> '>
+            </form>
+        </td>
+    </tr>
+</table>
