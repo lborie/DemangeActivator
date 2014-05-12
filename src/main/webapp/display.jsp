@@ -48,9 +48,10 @@
             <th>Nom</th>
             <th>Expérience</th>
             <th>Heure probable d'activation</th>
+            <th>Heure probable de jeu</th>
             </thead>
             <% for (Character character : characters) {%>
-            <tr class="danger">
+            <tr <% if(character.isPlayingInLessThan3Hours()) { %>class="danger"<% }%>>
                 <td class=""><%=character.getMatricule()%>
                 </td>
                 <td class="">
@@ -62,9 +63,13 @@
                 </td>
                 <td class=""><%=character.displayActivationText()%>
                 </td>
+                <td class=""><%=character.displayGamingText()%>
+                </td>
             </tr>
             <% } %>
         </table>
+
+    <div class="row"><div class="col-md-8"><span class="glyphicon glyphicon-info-sign"></span><span class="label label-danger">   Une ligne en route signifie que le personnage peut jouer dans les 3 prochaines heures</span></div></div>
 </div>
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>

@@ -4,6 +4,7 @@ import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -51,13 +52,50 @@ public class Character {
     }
 
     public String displayActivationText() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.FRANCE);
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
-        SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm:ss z", Locale.FRANCE);
-        hourFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(this.activationDate);
         calendar.add(Calendar.MINUTE, -5);
-        return "Le " + dateFormat.format(this.activationDate) + " entre " + hourFormat.format(calendar.getTime()) + " et " + hourFormat.format(this.activationDate);
+        return "Le " + getDateFormat().format(this.activationDate) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(this.activationDate);
+    }
+
+    public String displayGamingText() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(activationDatePlus47Hours());
+        calendar.add(Calendar.MINUTE, -5);
+        return "Le " + getDateFormat().format(activationDatePlus47Hours()) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(activationDatePlus47Hours());
+    }
+
+    public boolean isPlayingInLessThan3Hours() {
+        boolean isPlaying = false;
+        if (new Date().after(activationDatePlus44Hours())) {
+            isPlaying = true;
+        }
+        return isPlaying;
+    }
+
+    private DateFormat getDateFormat() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.FRANCE);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        return dateFormat;
+    }
+
+    private DateFormat getHourFormat() {
+        SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm:ss", Locale.FRANCE);
+        hourFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        return hourFormat;
+    }
+
+    private Date activationDatePlus47Hours() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(this.activationDate);
+        calendar.add(Calendar.HOUR, 47);
+        return calendar.getTime();
+    }
+
+    private Date activationDatePlus44Hours() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(this.activationDate);
+        calendar.add(Calendar.HOUR, 44);
+        return calendar.getTime();
     }
 }
