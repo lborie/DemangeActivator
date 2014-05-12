@@ -4,7 +4,11 @@ import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 @Entity
 @Cache
@@ -47,5 +51,14 @@ public class Character {
 
     public void setActivationDate(Date activationDate) {
         this.activationDate = activationDate;
+    }
+
+    public String displayActivationText() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.FRANCE);
+        SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm:ss", Locale.FRANCE);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(this.activationDate);
+        calendar.add(Calendar.MINUTE, -10);
+        return "Le " + dateFormat.format(this.activationDate) + " entre " + hourFormat.format(calendar.getTime()) + " et " + hourFormat.format(this.activationDate);
     }
 }

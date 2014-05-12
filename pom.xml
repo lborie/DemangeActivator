@@ -94,10 +94,10 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-      
+
     <build>
-        <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory> 
-                                   
+        <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -130,8 +130,8 @@
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine.target.version}</version>
                 <configuration>
-                   <fullScanSeconds>1</fullScanSeconds>
-                   <server>preview.appengine.google.com</server>
+                    <fullScanSeconds>1</fullScanSeconds>
+                    <server>preview.appengine.google.com</server>
                 </configuration>
             </plugin>
         </plugins>
