@@ -3,6 +3,6 @@
     <cron>
         <url>/refresh</url>
         <description>Repopulate activation time</description>
-        <schedule>every 5 minutes</schedule>
+        <schedule>every 3 minutes</schedule>
     </cron>
 </cronentries>

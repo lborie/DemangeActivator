@@ -110,14 +110,14 @@ public class RefreshServlet extends HttpServlet {
                     logger.info("New Character found");
                     current.setActivationDate(new Date());
                     charsByMatricules.put(current.getMatricule(), current);
+                } else if (current.getCurrentExperience() - charsByMatricules.get(current.getMatricule()).getCurrentExperience() == 1) {
+                    logger.info("New Activation Date for matricule {} : {}", matricule, new Date());
+                    current.setActivationDate(new Date());
                 } else {
-                    Character oldCharacter = charsByMatricules.get(current.getMatricule());
-                    if (current.getCurrentExperience() - oldCharacter.getCurrentExperience() == 1) {
-                        logger.info("New Activation Date for matricule {} : {}", matricule, new Date());
-                        current.setActivationDate(new Date());
-                        charsByMatricules.put(current.getMatricule(), current);
-                    }
+                    current.setActivationDate(charsByMatricules.get(current.getMatricule()).getActivationDate());
                 }
+
+                charsByMatricules.put(current.getMatricule(), current);
             } else {
                 logger.warn("Warning, status code : {}", response.getStatusLine().getStatusCode());
             }
