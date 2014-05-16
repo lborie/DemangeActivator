@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class DisplayServlet extends HttpServlet {
     @Override
@@ -28,9 +31,14 @@ public class DisplayServlet extends HttpServlet {
             throws IOException, ServletException {
 
         GenericDao<Character> dao = new GenericDao<>(Character.class);
-        dao.getEntities();
-        req.setAttribute("characters", dao.getEntities());
-
+        List<Character> characterList = dao.getEntities();
+        Collections.sort(characterList, new Comparator<Character>() {
+            @Override
+            public int compare(Character character, Character character2) {
+                return character.getActivationDate().compareTo(character2.getActivationDate());
+            }
+        });
+        req.setAttribute("characters", characterList);
         req.getRequestDispatcher("/display.jsp").forward(req, resp);
     }
 }
