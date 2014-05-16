@@ -54,14 +54,14 @@ public class Character {
     public String displayActivationText() {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(this.activationDate);
-        calendar.add(Calendar.MINUTE, -5);
+        calendar.add(Calendar.MINUTE, -3);
         return "Le " + getDateFormat().format(this.activationDate) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(this.activationDate);
     }
 
     public String displayGamingText() {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(activationDatePlus47Hours());
-        calendar.add(Calendar.MINUTE, -5);
+        calendar.add(Calendar.MINUTE, -3);
         return "Le " + getDateFormat().format(activationDatePlus47Hours()) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(activationDatePlus47Hours());
     }
 
