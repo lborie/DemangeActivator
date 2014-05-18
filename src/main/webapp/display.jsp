@@ -47,8 +47,7 @@
             <th>Matricule</th>
             <th>Nom</th>
             <th>Expérience</th>
-            <th>Heure probable d'activation</th>
-            <th>Heure probable de jeu</th>
+            <th>Augmentation de l'expérience de 1 point détecté le</th>
             </thead>
             <% for (Character character : characters) {%>
             <tr <% if(character.isPlayingInLessThan3Hours()) { %>class="danger"<% }%>>
@@ -62,8 +61,6 @@
                 <td class=""><%=character.getCurrentExperience()%>
                 </td>
                 <td class=""><%=character.displayActivationText()%>
-                </td>
-                <td class=""><%=character.displayGamingText()%>
                 </td>
             </tr>
             <% } %>

@@ -58,13 +58,6 @@ public class Character {
         return "Le " + getDateFormat().format(this.activationDate) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(this.activationDate);
     }
 
-    public String displayGamingText() {
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(activationDatePlus47Hours());
-        calendar.add(Calendar.MINUTE, -3);
-        return "Le " + getDateFormat().format(activationDatePlus47Hours()) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(activationDatePlus47Hours());
-    }
-
     public boolean isPlayingInLessThan3Hours() {
         boolean isPlaying = false;
         if (new Date().after(activationDatePlus44Hours())) {
@@ -83,13 +76,6 @@ public class Character {
         SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm:ss", Locale.FRANCE);
         hourFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
         return hourFormat;
-    }
-
-    private Date activationDatePlus47Hours() {
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(this.activationDate);
-        calendar.add(Calendar.HOUR, 47);
-        return calendar.getTime();
     }
 
     private Date activationDatePlus44Hours() {
