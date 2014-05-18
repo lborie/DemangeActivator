@@ -54,7 +54,6 @@ public class RefreshServlet extends HttpServlet {
     private final static List<String> MATRICULES = new ArrayList<>();
 
     {
-//        MATRICULES.add("2022"); // Kanithael
         MATRICULES.add("894"); // Lord Bâle
         MATRICULES.add("668"); // Lord Winchester
         MATRICULES.add("662"); // Lady Hamilton
@@ -68,6 +67,7 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("220"); // Bellamy Noiresprit
         MATRICULES.add("1127"); // Marie
         MATRICULES.add("1724"); // Haer'Dalis
+        MATRICULES.add("268"); // Arya
     }
 
     @Override
