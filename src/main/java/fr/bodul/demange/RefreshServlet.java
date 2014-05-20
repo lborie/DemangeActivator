@@ -16,6 +16,7 @@
 
 package fr.bodul.demange;
 
+import com.google.appengine.api.mail.MailService;
 import com.google.appengine.repackaged.com.google.common.base.Function;
 import com.google.appengine.repackaged.com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
@@ -30,11 +31,19 @@ import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public class RefreshServlet extends HttpServlet {
@@ -128,19 +137,45 @@ public class RefreshServlet extends HttpServlet {
 
     Character extractCharacter(String htmlResponse) {
         Character currentCharacter = new Character();
+        try {
+            String nameWithoutStart = htmlResponse.substring(htmlResponse.indexOf(START_NAME) + START_NAME.length());
+            String name = nameWithoutStart.substring(0, nameWithoutStart.indexOf(END_NAME));
+            currentCharacter.setName(name);
 
-        String nameWithoutStart = htmlResponse.substring(htmlResponse.indexOf(START_NAME) + START_NAME.length());
-        String name = nameWithoutStart.substring(0, nameWithoutStart.indexOf(END_NAME));
-        currentCharacter.setName(name);
+            String withoutStartMatricule = htmlResponse.substring(htmlResponse.indexOf(MATRICULE));
+            String matricule = withoutStartMatricule.substring(withoutStartMatricule.indexOf(START_CONTAINER) + START_CONTAINER.length(), withoutStartMatricule.indexOf(END_CONTAINER));
+            currentCharacter.setMatricule(Long.valueOf(matricule));
 
-        String withoutStartMatricule = htmlResponse.substring(htmlResponse.indexOf(MATRICULE));
-        String matricule = withoutStartMatricule.substring(withoutStartMatricule.indexOf(START_CONTAINER) + START_CONTAINER.length(), withoutStartMatricule.indexOf(END_CONTAINER));
-        currentCharacter.setMatricule(Long.valueOf(matricule));
-
-        String withoutStartExperience = htmlResponse.substring(htmlResponse.indexOf(EXPERIENCE));
-        String experience = withoutStartExperience.substring(withoutStartExperience.indexOf(START_CONTAINER) + START_CONTAINER.length(), withoutStartExperience.indexOf(END_CONTAINER));
-        currentCharacter.setCurrentExperience(Integer.valueOf(experience));
+            String withoutStartExperience = htmlResponse.substring(htmlResponse.indexOf(EXPERIENCE));
+            String experience = withoutStartExperience.substring(withoutStartExperience.indexOf(START_CONTAINER) + START_CONTAINER.length(), withoutStartExperience.indexOf(END_CONTAINER));
+            currentCharacter.setCurrentExperience(Integer.valueOf(experience));
+        } catch (StringIndexOutOfBoundsException exception) {
+            // Maybe a subscription problem : sending a mail
+            sendMailAlert();
+        }
 
         return currentCharacter;
+    }
+
+    /**
+     * Sending of the mail
+     */
+    private void sendMailAlert() {
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        String msgBody = "Problème lors du rafraichissement. L'abonnement doit être expiré !";
+
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(properties.getProperty("admin.mail"), "Moi"));
+            msg.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(properties.getProperty("admin.mail"), "Mr. Moi"));
+            msg.setSubject("[Démange] Problème avec le CRON");
+            msg.setText(msgBody);
+            Transport.send(msg);
+        } catch (UnsupportedEncodingException|MessagingException e) {
+            logger.warn("Impossible to send the mail");
+        }
     }
 }
