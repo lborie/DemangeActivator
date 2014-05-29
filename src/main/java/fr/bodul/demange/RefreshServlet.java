@@ -77,6 +77,7 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("1127"); // Marie
         MATRICULES.add("1724"); // Haer'Dalis
         MATRICULES.add("268"); // Arya
+        MATRICULES.add("2054"); // Yahvé
     }
 
     @Override
