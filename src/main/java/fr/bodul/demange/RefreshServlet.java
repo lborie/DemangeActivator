@@ -16,7 +16,6 @@
 
 package fr.bodul.demange;
 
-import com.google.appengine.api.mail.MailService;
 import com.google.appengine.repackaged.com.google.common.base.Function;
 import com.google.appengine.repackaged.com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
@@ -35,7 +34,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServlet;
@@ -63,21 +61,33 @@ public class RefreshServlet extends HttpServlet {
     private final static List<String> MATRICULES = new ArrayList<>();
 
     {
-        MATRICULES.add("894"); // Lord Bâle
-        MATRICULES.add("668"); // Lord Winchester
-        MATRICULES.add("662"); // Lady Hamilton
-        MATRICULES.add("1487"); // Lady Cardigan
-        MATRICULES.add("291"); // Teod
-        MATRICULES.add("275"); // Silice
-        MATRICULES.add("320"); // Scarni
-        MATRICULES.add("276"); // Vindhler
-        MATRICULES.add("242"); // Viper
-        MATRICULES.add("367"); // Orthuc
-        MATRICULES.add("220"); // Bellamy Noiresprit
-        MATRICULES.add("1127"); // Marie
-        MATRICULES.add("1724"); // Haer'Dalis
-        MATRICULES.add("268"); // Arya
-        MATRICULES.add("2054"); // Yahvé
+//        MATRICULES.add("894"); // Lord Bâle
+//        MATRICULES.add("668"); // Lord Winchester
+//        MATRICULES.add("662"); // Lady Hamilton
+//        MATRICULES.add("1487"); // Lady Cardigan
+//        MATRICULES.add("291"); // Teod
+//        MATRICULES.add("275"); // Silice
+//        MATRICULES.add("320"); // Scarni
+//        MATRICULES.add("276"); // Vindhler
+//        MATRICULES.add("242"); // Viper
+//        MATRICULES.add("367"); // Orthuc
+//        MATRICULES.add("220"); // Bellamy Noiresprit
+//        MATRICULES.add("1127"); // Marie
+//        MATRICULES.add("1724"); // Haer'Dalis
+//        MATRICULES.add("268"); // Arya
+//        MATRICULES.add("2054"); // Yahvé
+
+        MATRICULES.add("416"); // Tengah Rim
+        MATRICULES.add("1225"); // Endeuilleur
+        MATRICULES.add("1085"); // Matador
+        MATRICULES.add("877"); // Totor
+        MATRICULES.add("1427"); // Breth
+        MATRICULES.add("708"); // Calipso
+        MATRICULES.add("660"); // Cailloux
+        MATRICULES.add("1745"); // Mengue
+        MATRICULES.add("1550"); // Baby Doll
+        MATRICULES.add("1212"); // Gontrand
+        MATRICULES.add("609"); // Skalino
     }
 
     @Override
@@ -175,7 +185,7 @@ public class RefreshServlet extends HttpServlet {
             msg.setSubject("[Démange] Problème avec le CRON");
             msg.setText(msgBody);
             Transport.send(msg);
-        } catch (UnsupportedEncodingException|MessagingException e) {
+        } catch (UnsupportedEncodingException | MessagingException e) {
             logger.warn("Impossible to send the mail");
         }
     }
