@@ -61,34 +61,43 @@ public class RefreshServlet extends HttpServlet {
     private final static List<String> MATRICULES = new ArrayList<>();
 
     {
-//        MATRICULES.add("894"); // Lord Bâle
-//        MATRICULES.add("668"); // Lord Winchester
-//        MATRICULES.add("662"); // Lady Hamilton
-//        MATRICULES.add("1487"); // Lady Cardigan
-//        MATRICULES.add("291"); // Teod
-//        MATRICULES.add("275"); // Silice
-//        MATRICULES.add("320"); // Scarni
-//        MATRICULES.add("276"); // Vindhler
-//        MATRICULES.add("242"); // Viper
-//        MATRICULES.add("367"); // Orthuc
+        MATRICULES.add("215");
 //        MATRICULES.add("220"); // Bellamy Noiresprit
-//        MATRICULES.add("1127"); // Marie
-//        MATRICULES.add("1724"); // Haer'Dalis
+        MATRICULES.add("230"); // Cyanide
+//        MATRICULES.add("242"); // Viper
 //        MATRICULES.add("268"); // Arya
-//        MATRICULES.add("2054"); // Yahvé
-
-        MATRICULES.add("416"); // Tengah Rim
-        MATRICULES.add("1225"); // Endeuilleur
-        MATRICULES.add("1085"); // Matador
-        MATRICULES.add("877"); // Totor
-        MATRICULES.add("1427"); // Breth
-        MATRICULES.add("708"); // Calipso
-        MATRICULES.add("660"); // Cailloux
-        MATRICULES.add("1745"); // Mengue
-        MATRICULES.add("1550"); // Baby Doll
-        MATRICULES.add("1212"); // Gontrand
-        MATRICULES.add("609"); // Skalino
+//        MATRICULES.add("275"); // Silice
+//        MATRICULES.add("276"); // Vindhler
+        MATRICULES.add("289"); // Ambre
+//        MATRICULES.add("291"); // Teod
+//        MATRICULES.add("320"); // Scarni
+        MATRICULES.add("364"); // Amaliana
+//        MATRICULES.add("367"); // Orthuc
         MATRICULES.add("412"); // Marius
+        MATRICULES.add("416"); // Tengah Rim
+        MATRICULES.add("609"); // Skalino
+//        MATRICULES.add("662"); // Lady Hamilton
+        MATRICULES.add("660"); // Cailloux
+//        MATRICULES.add("668"); // Lord Winchester
+        MATRICULES.add("708"); // Calipso
+        MATRICULES.add("877"); // Totor
+//        MATRICULES.add("894"); // Lord Bâle
+        MATRICULES.add("961"); // Ovah
+        MATRICULES.add("1085"); // Matador
+//        MATRICULES.add("1127"); // Marie
+        MATRICULES.add("1212"); // Gontrand
+        MATRICULES.add("1225"); // Endeuilleur
+        MATRICULES.add("1427"); // Breth
+        MATRICULES.add("1482"); // Kanibal
+//        MATRICULES.add("1487"); // Lady Cardigan
+        MATRICULES.add("1550"); // Baby Doll
+//        MATRICULES.add("1724"); // Haer'Dalis
+        MATRICULES.add("1745"); // Mengue
+        MATRICULES.add("1853"); // Lilah Vetâla
+//        MATRICULES.add("2054"); // Yahvé
+        MATRICULES.add("2231"); // Xaphan
+        MATRICULES.add("2613"); // Aurora
+
     }
 
     @Override
