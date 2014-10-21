@@ -73,7 +73,7 @@ public class RefreshServlet extends HttpServlet {
 //        MATRICULES.add("320"); // Scarni
         MATRICULES.add("364"); // Amaliana
 //        MATRICULES.add("367"); // Orthuc
-        MATRICULES.add("412"); // Marius
+//        MATRICULES.add("412"); // Marius
         MATRICULES.add("416"); // Tengah Rim
         MATRICULES.add("609"); // Skalino
 //        MATRICULES.add("662"); // Lady Hamilton
@@ -83,7 +83,7 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("877"); // Totor
 //        MATRICULES.add("894"); // Lord Bâle
         MATRICULES.add("961"); // Ovah
-        MATRICULES.add("1085"); // Matador
+//        MATRICULES.add("1085"); // Matador
 //        MATRICULES.add("1127"); // Marie
         MATRICULES.add("1212"); // Gontrand
         MATRICULES.add("1225"); // Endeuilleur
