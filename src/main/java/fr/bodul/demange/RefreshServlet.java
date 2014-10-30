@@ -61,6 +61,7 @@ public class RefreshServlet extends HttpServlet {
     private final static List<String> MATRICULES = new ArrayList<>();
 
     {
+        MATRICULES.add("172");
         MATRICULES.add("215");
 //        MATRICULES.add("220"); // Bellamy Noiresprit
         MATRICULES.add("230"); // Cyanide
@@ -73,18 +74,26 @@ public class RefreshServlet extends HttpServlet {
 //        MATRICULES.add("320"); // Scarni
         MATRICULES.add("364"); // Amaliana
 //        MATRICULES.add("367"); // Orthuc
+        MATRICULES.add("379"); //
 //        MATRICULES.add("412"); // Marius
         MATRICULES.add("416"); // Tengah Rim
+        MATRICULES.add("482"); //
+        MATRICULES.add("489"); //
+        MATRICULES.add("527"); //
         MATRICULES.add("609"); // Skalino
-//        MATRICULES.add("662"); // Lady Hamilton
+        MATRICULES.add("641"); //
         MATRICULES.add("660"); // Cailloux
+//        MATRICULES.add("662"); // Lady Hamilton
 //        MATRICULES.add("668"); // Lord Winchester
         MATRICULES.add("708"); // Calipso
+        MATRICULES.add("768"); //
         MATRICULES.add("877"); // Totor
 //        MATRICULES.add("894"); // Lord Bâle
         MATRICULES.add("961"); // Ovah
+        MATRICULES.add("1036"); //
 //        MATRICULES.add("1085"); // Matador
 //        MATRICULES.add("1127"); // Marie
+        MATRICULES.add("1195"); //
         MATRICULES.add("1212"); // Gontrand
         MATRICULES.add("1225"); // Endeuilleur
         MATRICULES.add("1427"); // Breth
@@ -96,7 +105,10 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("1853"); // Lilah Vetâla
 //        MATRICULES.add("2054"); // Yahvé
         MATRICULES.add("2231"); // Xaphan
+        MATRICULES.add("2246"); //
         MATRICULES.add("2613"); // Aurora
+        MATRICULES.add("2660"); //
+        MATRICULES.add("2667"); //
 
     }
 
