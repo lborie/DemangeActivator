@@ -16,18 +16,10 @@
 
 package fr.bodul.demange;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.repackaged.com.google.common.io.Files;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
-
 import com.google.common.io.Resources;
-import fr.bodul.demange.RefreshServlet;
 import org.apache.commons.io.Charsets;
 import org.junit.After;
 import org.junit.Before;
@@ -35,35 +27,33 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static junit.framework.Assert.assertEquals;
 
 public class RefreshServletTest {
 
-  private RefreshServlet refreshServlet;
+    private RefreshServlet refreshServlet;
 
-  private final LocalServiceTestHelper helper =
-      new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-          .setEnvIsLoggedIn(true)
-          .setEnvAuthDomain("localhost")
-          .setEnvEmail("test@localhost");
+    private final LocalServiceTestHelper helper =
+            new LocalServiceTestHelper(new LocalUserServiceTestConfig())
+                    .setEnvIsLoggedIn(true)
+                    .setEnvAuthDomain("localhost")
+                    .setEnvEmail("test@localhost");
 
-  @Before
-  public void setupGuestBookServlet() {
-    helper.setUp();
-    refreshServlet = new RefreshServlet();
-  }
+    @Before
+    public void setupGuestBookServlet() {
+        helper.setUp();
+        refreshServlet = new RefreshServlet();
+    }
 
-  @After
-  public void tearDownHelper() {
-    helper.tearDown();
-  }
+    @After
+    public void tearDownHelper() {
+        helper.tearDown();
+    }
 
-  @Test
-  public void testDoGet() throws IOException {
+    @Test
+    public void testDoGet() throws IOException {
 //    HttpServletRequest request = mock(HttpServletRequest.class);
 //    HttpServletResponse response = mock(HttpServletResponse.class);
 //
@@ -76,7 +66,7 @@ public class RefreshServletTest {
 //    User currentUser = UserServiceFactory.getUserService().getCurrentUser();
 //
 //    assertEquals(true,  stringWriter.toString().startsWith("Hello"));
-  }
+    }
 
     @Test
     public void testExtractCharacter() throws IOException {
@@ -85,6 +75,17 @@ public class RefreshServletTest {
         assertEquals("Kanithael", exampleCharacter.getName());
         assertEquals(547, exampleCharacter.getCurrentExperience().intValue());
         assertEquals(2022, exampleCharacter.getMatricule().intValue());
+    }
+
+    @Test
+    public void testExtractionFactions() throws IOException {
+        RefreshServlet servlet = new RefreshServlet();
+        List<Faction> factions = servlet.extractFactions(Files.toString(new File(Resources.getResource("events.html").getPath()), Charsets.UTF_8));
+        assertEquals(2, factions.size());
+        assertEquals(949, factions.get(0).getFactionId().intValue());
+        assertEquals("Collège d'Instruction et d'Eveil Lumineux", factions.get(0).getName());
+        assertEquals(2, factions.get(1).getFactionId().intValue());
+        assertEquals("Nation Angélique", factions.get(1).getName());
     }
 
 }

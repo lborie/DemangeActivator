@@ -17,6 +17,7 @@
 package fr.bodul.demange;
 
 import com.google.appengine.repackaged.com.google.common.base.Function;
+import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.appengine.repackaged.com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -58,7 +59,11 @@ public class RefreshServlet extends HttpServlet {
     private final static String END_CONTAINER = "</span>";
     private final static String START_NAME = "<th colspan=\"2\" align=\"center\">";
     private final static String END_NAME = "</th>";
+    private final static String START_FACTION = "<a href=\"faction_presentation.php?id_faction=";
+    private final static String START_FACTION_NAME = "target=\"_self\">";
     private final static List<String> MATRICULES = new ArrayList<>();
+
+    private boolean mailSent = false;
 
     {
         MATRICULES.add("172");
@@ -117,9 +122,11 @@ public class RefreshServlet extends HttpServlet {
             throws IOException {
         properties.load(RefreshServlet.class.getResourceAsStream("/config.properties"));
         final HttpClient httpClient = HttpClients.createDefault();
+        mailSent = false;
 
-        GenericDao<Character> dao = new GenericDao<>(Character.class);
-        List<Character> characters = dao.getEntities();
+        GenericDao<Character> daoCharacters = new GenericDao<>(Character.class);
+        GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
+        List<Character> characters = daoCharacters.getEntities();
 
         Map<Long, Character> charsByMatricules = new HashMap<>(Maps.uniqueIndex(characters, new Function<Character, Long>() {
             @Override
@@ -147,6 +154,14 @@ public class RefreshServlet extends HttpServlet {
                 response.getEntity().getContent().close();
                 writer.close();
                 Character current = extractCharacter(writer.toString());
+                List<Faction> factions = extractFactions(writer.toString());
+                current.setFactionsId(Lists.transform(factions, new Function<Faction, Long>() {
+                    @Override
+                    public Long apply(Faction faction) {
+                        return faction.getFactionId();
+                    }
+                }));
+                daoFactions.insertEntities(factions);
 
                 if (charsByMatricules.get(current.getMatricule()) == null) {
                     logger.info("New Character found");
@@ -165,7 +180,7 @@ public class RefreshServlet extends HttpServlet {
             }
         }
 
-        dao.insertEntities(new ArrayList<>(charsByMatricules.values()));
+        daoCharacters.insertEntities(new ArrayList<>(charsByMatricules.values()));
     }
 
     Character extractCharacter(String htmlResponse) {
@@ -190,25 +205,49 @@ public class RefreshServlet extends HttpServlet {
         return currentCharacter;
     }
 
+    List<Faction> extractFactions(String htmlResponse) {
+        List<Faction> factions = new ArrayList<>();
+        try {
+            while(htmlResponse.contains(START_FACTION)) {
+                Faction currentFaction = new Faction();
+                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION) + START_FACTION.length());
+                currentFaction.setFactionId(Long.valueOf(htmlResponse.substring(0, htmlResponse.indexOf('"'))));
+
+                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION_NAME) + START_FACTION_NAME.length());
+                currentFaction.setName(htmlResponse.substring(0, htmlResponse.indexOf(" : ")));
+                factions.add(currentFaction);
+            }
+        } catch (StringIndexOutOfBoundsException exception) {
+            // Maybe a subscription problem : sending a mail
+            sendMailAlert();
+        }
+
+        return factions;
+    }
+
     /**
      * Sending of the mail
      */
     private void sendMailAlert() {
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
+        if (!mailSent) {
+            Properties props = new Properties();
+            Session session = Session.getDefaultInstance(props, null);
 
-        String msgBody = "Problème lors du rafraichissement. L'abonnement doit être expiré !";
+            String msgBody = "Problème lors du rafraichissement. L'abonnement doit être expiré !";
 
-        try {
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(properties.getProperty("admin.mail"), "Moi"));
-            msg.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress(properties.getProperty("admin.mail"), "Mr. Moi"));
-            msg.setSubject("[Démange] Problème avec le CRON");
-            msg.setText(msgBody);
-            Transport.send(msg);
-        } catch (UnsupportedEncodingException | MessagingException e) {
-            logger.warn("Impossible to send the mail");
+            try {
+                Message msg = new MimeMessage(session);
+                msg.setFrom(new InternetAddress(properties.getProperty("admin.mail"), "Moi"));
+                msg.addRecipient(Message.RecipientType.TO,
+                        new InternetAddress(properties.getProperty("admin.mail"), "Mr. Moi"));
+                msg.setSubject("[Démange] Problème avec le CRON");
+                msg.setText(msgBody);
+                Transport.send(msg);
+            } catch (UnsupportedEncodingException | MessagingException e) {
+                logger.warn("Impossible to send the mail");
+            }
+
+            mailSent = true;
         }
     }
 }

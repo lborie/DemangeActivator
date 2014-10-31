@@ -18,6 +18,7 @@ public class Character {
     private String name;
     private Integer currentExperience;
     private Date activationDate;
+    private List<Long> factionsId;
 
     public Long getMatricule() {
         return matricule;
@@ -83,5 +84,13 @@ public class Character {
         calendar.setTime(this.activationDate);
         calendar.add(Calendar.HOUR, 44);
         return calendar.getTime();
+    }
+
+    public List<Long> getFactionsId() {
+        return factionsId;
+    }
+
+    public void setFactionsId(List<Long> factionsId) {
+        this.factionsId = factionsId;
     }
 }
