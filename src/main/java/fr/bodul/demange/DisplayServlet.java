@@ -16,6 +16,10 @@
 
 package fr.bodul.demange;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +29,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Lists.newArrayList;
+
 public class DisplayServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -32,6 +39,25 @@ public class DisplayServlet extends HttpServlet {
 
         GenericDao<Character> dao = new GenericDao<>(Character.class);
         List<Character> characterList = dao.getEntities();
+        String factionId = req.getParameter("factionId");
+        if (factionId != null) {
+            try{
+                final Long currentFactionId = Long.valueOf(factionId);
+                req.setAttribute("factionId", currentFactionId);
+                characterList = newArrayList(filter(characterList, new Predicate<Character>() {
+                    @Override
+                    public boolean apply(Character character) {
+                        return character.getFactionsId() != null && character.getFactionsId().contains(currentFactionId);
+                    }
+                }));
+            } catch (NumberFormatException ex){
+                System.out.print("bad parameter :" + factionId);
+                req.setAttribute("factionId", "ALL");
+            }
+        } else {
+            req.setAttribute("factionId", "ALL");
+        }
+
         Collections.sort(characterList, new Comparator<Character>() {
             @Override
             public int compare(Character character, Character character2) {
@@ -39,6 +65,11 @@ public class DisplayServlet extends HttpServlet {
             }
         });
         req.setAttribute("characters", characterList);
+
+        GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
+        List<Faction> factions = daoFactions.getEntities();
+        req.setAttribute("factions", factions);
+
         req.getRequestDispatcher("/display.jsp").forward(req, resp);
     }
 }
