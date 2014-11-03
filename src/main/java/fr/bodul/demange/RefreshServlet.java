@@ -101,6 +101,8 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("1195"); //
         MATRICULES.add("1212"); // Gontrand
         MATRICULES.add("1225"); // Endeuilleur
+        MATRICULES.add("1230"); // Mickaella
+        MATRICULES.add("1326"); // Iqbal
         MATRICULES.add("1427"); // Breth
         MATRICULES.add("1482"); // Kanibal
 //        MATRICULES.add("1487"); // Lady Cardigan
@@ -108,6 +110,7 @@ public class RefreshServlet extends HttpServlet {
 //        MATRICULES.add("1724"); // Haer'Dalis
         MATRICULES.add("1745"); // Mengue
         MATRICULES.add("1853"); // Lilah Vetâla
+        MATRICULES.add("1962"); // Attacker
 //        MATRICULES.add("2054"); // Yahvé
         MATRICULES.add("2231"); // Xaphan
         MATRICULES.add("2246"); //
