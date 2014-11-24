@@ -53,15 +53,13 @@ public class Character {
     }
 
     public String displayActivationText() {
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(this.activationDate);
-        calendar.add(Calendar.MINUTE, -5);
-        return "Le " + getDateFormat().format(this.activationDate) + " entre " + getHourFormat().format(calendar.getTime()) + " et " + getHourFormat().format(this.activationDate);
+        return "Le " + getDateFormat().format(this.activationDate) + " à " + getHourFormat().format(this.activationDate) + "H. " +
+                "(Rejoue le "+ getDateFormat().format(activationDatePlus45Hours()) + " entre " + getHourFormat().format(activationDatePlus45Hours()) + "H. et " + getHourFormat().format(activationDatePlus47Hours()) + "H.)";
     }
 
-    public boolean isPlayingInLessThan3Hours() {
+    public boolean isPlayingInLessThan2Hours() {
         boolean isPlaying = false;
-        if (new Date().after(activationDatePlus44Hours())) {
+        if (new Date().after(activationDatePlus45Hours())) {
             isPlaying = true;
         }
         return isPlaying;
@@ -74,15 +72,22 @@ public class Character {
     }
 
     private DateFormat getHourFormat() {
-        SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm:ss", Locale.FRANCE);
+        SimpleDateFormat hourFormat = new SimpleDateFormat("H", Locale.FRANCE);
         hourFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
         return hourFormat;
     }
 
-    private Date activationDatePlus44Hours() {
+    private Date activationDatePlus45Hours() {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(this.activationDate);
-        calendar.add(Calendar.HOUR, 44);
+        calendar.add(Calendar.HOUR, 45);
+        return calendar.getTime();
+    }
+
+    private Date activationDatePlus47Hours() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(this.activationDate);
+        calendar.add(Calendar.HOUR, 47);
         return calendar.getTime();
     }
 

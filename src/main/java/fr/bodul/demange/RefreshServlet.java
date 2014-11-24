@@ -170,9 +170,11 @@ public class RefreshServlet extends HttpServlet {
                     logger.info("New Character found");
                     current.setActivationDate(new Date());
                     charsByMatricules.put(current.getMatricule(), current);
-                } else if (current.getCurrentExperience() - charsByMatricules.get(current.getMatricule()).getCurrentExperience() == 1) {
-                    logger.info("New Activation Date for matricule {} : {}", matricule, new Date());
-                    current.setActivationDate(new Date());
+                } else if (current.getCurrentExperience() - charsByMatricules.get(current.getMatricule()).getCurrentExperience() == 1 && (Calendar.getInstance(Locale.FRENCH).get(Calendar.HOUR) % 2 == 0) ) {
+                    Date activationDate = new Date();
+                    Calendar.getInstance(Locale.FRENCH).get(Calendar.HOUR);
+                    logger.info("New Activation Date for matricule {} : {}", matricule, activationDate);
+                    current.setActivationDate(activationDate);
                 } else {
                     current.setActivationDate(charsByMatricules.get(current.getMatricule()).getActivationDate());
                 }

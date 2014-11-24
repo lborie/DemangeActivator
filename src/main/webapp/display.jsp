@@ -64,7 +64,7 @@
             <th>Augmentation de l'expérience de 1 point détecté le</th>
             </thead>
             <% for (Character character : characters) {%>
-            <tr <% if(character.isPlayingInLessThan3Hours()) { %>class="danger"<% }%>>
+            <tr <% if(character.isPlayingInLessThan2Hours()) { %>class="danger"<% }%>>
                 <td class=""><%=character.getMatricule()%>
                 </td>
                 <td class="">
@@ -80,7 +80,7 @@
             <% } %>
         </table>
 
-    <div class="row"><div class="col-md-8"><span class="glyphicon glyphicon-info-sign"></span><span class="label label-warning">   Une ligne en rouge signifie que le personnage peut jouer dans les 3 prochaines heures</span></div></div>
+    <div class="row"><div class="col-md-8"><span class="glyphicon glyphicon-info-sign"></span><span class="label label-warning">   Une ligne en rouge signifie que le personnage peut jouer dans les 2 prochaines heures</span></div></div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
