@@ -20,14 +20,19 @@ import com.google.appengine.repackaged.com.google.common.io.Files;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
 import com.google.common.io.Resources;
+import junit.framework.Assert;
 import org.apache.commons.io.Charsets;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -86,6 +91,13 @@ public class RefreshServletTest {
         assertEquals("Collège d'Instruction et d'Eveil Lumineux", factions.get(0).getName());
         assertEquals(2, factions.get(1).getFactionId().intValue());
         assertEquals("Nation Angélique", factions.get(1).getName());
+    }
+
+    @Test
+    @Ignore
+    public void testActivationDate() {
+        System.out.print(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY));
+        Assert.assertTrue(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY) % 2 == 0);
     }
 
 }
