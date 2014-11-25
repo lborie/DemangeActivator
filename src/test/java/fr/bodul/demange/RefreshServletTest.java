@@ -97,6 +97,7 @@ public class RefreshServletTest {
     @Ignore
     public void testActivationDate() {
         System.out.print(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY));
+        System.out.print(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.MINUTE));
         Assert.assertTrue(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY) % 2 == 0);
     }
 
