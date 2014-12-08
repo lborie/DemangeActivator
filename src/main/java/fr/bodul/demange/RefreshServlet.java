@@ -84,7 +84,7 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("416"); // Tengah Rim
         MATRICULES.add("482"); //
         MATRICULES.add("489"); //
-        MATRICULES.add("527"); //
+//        MATRICULES.add("527"); //Horace
         MATRICULES.add("609"); // Skalino
         MATRICULES.add("641"); //
         MATRICULES.add("660"); // Cailloux
@@ -95,15 +95,15 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("877"); // Totor
 //        MATRICULES.add("894"); // Lord Bâle
         MATRICULES.add("961"); // Ovah
-        MATRICULES.add("1036"); //
+//        MATRICULES.add("1036"); //Torkil
 //        MATRICULES.add("1085"); // Matador
 //        MATRICULES.add("1127"); // Marie
-        MATRICULES.add("1195"); //
+//        MATRICULES.add("1195"); //Marijanig
         MATRICULES.add("1212"); // Gontrand
         MATRICULES.add("1225"); // Endeuilleur
         MATRICULES.add("1230"); // Mickaella
         MATRICULES.add("1326"); // Iqbal
-        MATRICULES.add("1427"); // Breth
+//        MATRICULES.add("1427"); // Breth
         MATRICULES.add("1482"); // Kanibal
 //        MATRICULES.add("1487"); // Lady Cardigan
         MATRICULES.add("1550"); // Baby Doll
@@ -112,6 +112,7 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("1853"); // Lilah Vetâla
         MATRICULES.add("1962"); // Attacker
 //        MATRICULES.add("2054"); // Yahvé
+        MATRICULES.add("2134"); // Hautzouz
         MATRICULES.add("2231"); // Xaphan
         MATRICULES.add("2246"); //
         MATRICULES.add("2613"); // Aurora
