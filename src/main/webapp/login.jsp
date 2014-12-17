@@ -50,38 +50,18 @@
     </div>
 </div>
 <div class="container">
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" <% if("ALL".equals(factionId)) { %>class="active"<% }%>><a href="/">Tous</a></li>
-        <% for (Faction faction : factions) {%>
-            <li role="presentation" <% if(faction.getFactionId().equals(factionId)) { %>class="active"<% }%>><a href="?factionId=<%=faction.getFactionId()%>"><%=faction.getName()%></a></li>
-        <% } %>
-    </ul>
-        <table class="table table-hover table-condensed table-bordered">
-            <thead>
-            <th>Matricule</th>
-            <th>Nom</th>
-            <th>Expérience</th>
-            <th>Augmentation de l'expérience de 1 point détecté le</th>
-            </thead>
-            <% for (Character character : characters) {%>
-            <tr <% if(character.isPlayingInLessThan2Hours()) { %>class="danger"<% }%>>
-                <td class=""><%=character.getMatricule()%>
-                </td>
-                <td class="">
-                    <a href="http://www.demange-le-jeu.com/demange-v2/perso_events_view.php?id_perso=<%=character.getMatricule()%>">
-                            <%=character.getName()%>
-                    </a>
-                </td>
-                <td class=""><%=character.getCurrentExperience()%>
-                </td>
-                <td class=""><%=character.displayActivationText()%>
-                </td>
-            </tr>
-            <% } %>
-        </table>
 
-    <div class="row"><div class="col-md-8"><span class="glyphicon glyphicon-info-sign"></span><span class="label label-warning">   Une ligne en rouge signifie que le personnage peut jouer dans les 2 prochaines heures</span></div></div>
-</div>
+    <form class="form-signin" role="form" action="display" method="POST">
+        <h2 class="form-signin-heading">Authentification</h2>
+        <label for="login" class="sr-only">Login</label>
+        <input type="text" id="login" name="login" class="form-control" placeholder="Login" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+
+</div> <!-- /container -->
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
