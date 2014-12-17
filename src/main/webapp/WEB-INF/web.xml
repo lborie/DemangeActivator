@@ -8,6 +8,10 @@
         <servlet-name>display</servlet-name>
         <servlet-class>fr.bodul.demange.DisplayServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>fr.bodul.demange.AdminServlet</servlet-class>
+    </servlet>
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>display</servlet-name>
         <url-pattern>/display</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>display</welcome-file>

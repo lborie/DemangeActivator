@@ -30,3 +30,25 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+.admin {
+    max-width: 330px;
+    padding: 15px;
+}
+.admin .admin-heading,
+.admin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.admin .form-control:focus {
+    z-index: 2;
+}
+.admin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}

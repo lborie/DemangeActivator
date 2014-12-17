@@ -19,6 +19,8 @@ package fr.bodul.demange;
 import com.google.appengine.repackaged.com.google.common.base.Function;
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.appengine.repackaged.com.google.common.collect.Maps;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -44,6 +46,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+
+import static com.google.appengine.repackaged.com.google.common.collect.Maps.uniqueIndex;
+import static com.google.common.collect.Iterables.filter;
 
 public class RefreshServlet extends HttpServlet {
 
@@ -134,12 +139,20 @@ public class RefreshServlet extends HttpServlet {
         GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
         List<Character> characters = daoCharacters.getEntities();
 
-        Map<Long, Character> charsByMatricules = new HashMap<>(Maps.uniqueIndex(characters, new Function<Character, Long>() {
+        characters = Lists.newArrayList(filter(characters, new Predicate<Character>() {
+            @Override
+            public boolean apply(Character character) {
+                return character.isActive() == null || character.isActive();
+            }
+        }));
+
+        Map<Long, Character> charsByMatricules = new HashMap<>(uniqueIndex(characters, new Function<Character, Long>() {
             @Override
             public Long apply(Character character) {
                 return character.getMatricule();
             }
         }));
+
         // Logging
         HttpPost httpPost = new HttpPost(DEMANGE_LOGGING);
         List<NameValuePair> params = new ArrayList<>();
@@ -150,9 +163,10 @@ public class RefreshServlet extends HttpServlet {
         httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
         httpClient.execute(httpPost);
 
-        for (String matricule : MATRICULES) {
-            logger.info("Refresh matricule : {}", matricule);
-            HttpGet httpGet = new HttpGet(DEMANGE_URL + matricule);
+        for (Long matricule : charsByMatricules.keySet()) {
+            String matriculeString = String.valueOf(matricule);
+            logger.info("Refresh matricule : {}", matriculeString);
+            HttpGet httpGet = new HttpGet(DEMANGE_URL + matriculeString);
             HttpResponse response = httpClient.execute(httpGet);
             if (response.getStatusLine().getStatusCode() == 200) {
                 StringWriter writer = new StringWriter();
@@ -160,6 +174,7 @@ public class RefreshServlet extends HttpServlet {
                 response.getEntity().getContent().close();
                 writer.close();
                 Character current = extractCharacter(writer.toString());
+                current.setActive(true);
                 List<Faction> factions = extractFactions(writer.toString());
                 current.setFactionsId(Lists.transform(factions, new Function<Faction, Long>() {
                     @Override
@@ -169,7 +184,7 @@ public class RefreshServlet extends HttpServlet {
                 }));
                 daoFactions.insertEntities(factions);
 
-                if (charsByMatricules.get(current.getMatricule()) == null) {
+                if (charsByMatricules.get(current.getMatricule()) == null || charsByMatricules.get(current.getMatricule()).getName() == null) {
                     logger.info("New Character found");
                     current.setActivationDate(new Date());
                     charsByMatricules.put(current.getMatricule(), current);
@@ -177,7 +192,7 @@ public class RefreshServlet extends HttpServlet {
                         && (Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY) % 2 == 0)
                         && (Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.MINUTE) < 15)) {
                     Date activationDate = new Date();
-                    logger.info("New Activation Date for matricule {} : {}", matricule, activationDate);
+                    logger.info("New Activation Date for matricule {} : {}", matriculeString, activationDate);
                     current.setActivationDate(activationDate);
                 } else {
                     current.setActivationDate(charsByMatricules.get(current.getMatricule()).getActivationDate());

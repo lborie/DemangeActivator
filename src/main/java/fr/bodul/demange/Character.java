@@ -19,6 +19,7 @@ public class Character {
     private Integer currentExperience;
     private Date activationDate;
     private List<Long> factionsId;
+    private Boolean active;
 
     public Long getMatricule() {
         return matricule;
@@ -97,5 +98,13 @@ public class Character {
 
     public void setFactionsId(List<Long> factionsId) {
         this.factionsId = factionsId;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean isActive) {
+        this.active = isActive;
     }
 }
