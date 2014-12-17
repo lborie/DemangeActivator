@@ -76,6 +76,7 @@ public class RefreshServlet extends HttpServlet {
 //        MATRICULES.add("276"); // Vindhler
         MATRICULES.add("289"); // Ambre
 //        MATRICULES.add("291"); // Teod
+        MATRICULES.add("309"); // Muad'Dib
 //        MATRICULES.add("320"); // Scarni
         MATRICULES.add("364"); // Amaliana
 //        MATRICULES.add("367"); // Orthuc
@@ -118,6 +119,7 @@ public class RefreshServlet extends HttpServlet {
         MATRICULES.add("2613"); // Aurora
         MATRICULES.add("2660"); //
         MATRICULES.add("2667"); //
+        MATRICULES.add("3097"); // Ander de Kordor
 
     }
 
@@ -215,7 +217,7 @@ public class RefreshServlet extends HttpServlet {
     List<Faction> extractFactions(String htmlResponse) {
         List<Faction> factions = new ArrayList<>();
         try {
-            while(htmlResponse.contains(START_FACTION)) {
+            while (htmlResponse.contains(START_FACTION)) {
                 Faction currentFaction = new Faction();
                 htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION) + START_FACTION.length());
                 currentFaction.setFactionId(Long.valueOf(htmlResponse.substring(0, htmlResponse.indexOf('"'))));
