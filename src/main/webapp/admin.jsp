@@ -39,12 +39,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Demange activator</a>
+            <a class="navbar-brand" href="display">Demange activator</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="display">Home</a></li>
-                <li class="active"><a href="admin">Administration</a></li>
+                <li><a href="display">Accueil</a></li>
+                <li class="active"><a href="#">Administration</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="logout">Déconnexion</a></li>

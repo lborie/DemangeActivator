@@ -60,12 +60,15 @@ public class DisplayServlet extends HttpServlet {
     private void displayPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         GenericDao<Character> dao = new GenericDao<>(Character.class);
         List<Character> characterList = dao.getEntities();
+
         characterList = Lists.newArrayList(Iterables.filter(characterList, new Predicate<Character>() {
             @Override
             public boolean apply(Character character) {
                 return (character.isActive() == null || character.isActive()) && character.getName() != null;
             }
         }));
+        final List<Character> characterListFinal = newArrayList(characterList);
+
         String factionId = req.getParameter("factionId");
         if (factionId != null) {
             try {
@@ -93,7 +96,6 @@ public class DisplayServlet extends HttpServlet {
         });
         req.setAttribute("characters", characterList);
 
-        final List<Character> characterListFinal = newArrayList(characterList);
         GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
         List<Faction> factions = Lists.newArrayList(Iterables.filter(daoFactions.getEntities(), new Predicate<Faction>() {
             @Override
