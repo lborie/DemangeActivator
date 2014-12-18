@@ -12,6 +12,10 @@
         <servlet-name>admin</servlet-name>
         <servlet-class>fr.bodul.demange.AdminServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>fr.bodul.demange.LogoutServlet</servlet-class>
+    </servlet>
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>display</welcome-file>

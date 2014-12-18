@@ -46,6 +46,9 @@
                 <li><a href="display">Home</a></li>
                 <li class="active"><a href="admin">Administration</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="logout">Déconnexion</a></li>
+            </ul>
         </div>
         <!--/.nav-collapse -->
     </div>

@@ -19,11 +19,8 @@ package fr.bodul.demange;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -96,8 +93,22 @@ public class DisplayServlet extends HttpServlet {
         });
         req.setAttribute("characters", characterList);
 
+        final List<Character> characterListFinal = newArrayList(characterList);
         GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
-        List<Faction> factions = daoFactions.getEntities();
+        List<Faction> factions = Lists.newArrayList(Iterables.filter(daoFactions.getEntities(), new Predicate<Faction>() {
+            @Override
+            public boolean apply(Faction faction) {
+                for (Character character : characterListFinal) {
+                    try {
+                    if (character.getFactionsId() != null && character.getFactionsId().contains(faction.getFactionId())) {
+                        return true;
+                    }} catch (NullPointerException ex){
+                        System.out.print(ex);
+                    }
+                }
+                return false;
+            }
+        }));
         req.setAttribute("factions", factions);
 
         req.getRequestDispatcher("/display.jsp").forward(req, resp);

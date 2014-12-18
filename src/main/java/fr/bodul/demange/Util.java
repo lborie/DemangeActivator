@@ -23,7 +23,7 @@ public class Util {
         String estimatedHash = getHash((String) properties.get("login.login") + (String) properties.get("login.password"));
 
         Cookie[] cookies = req.getCookies();
-        if (cookies != null){
+        if (cookies != null) {
             String calculhash = null;
             //HttpServletRequest
             for (int i = 0; i < cookies.length; i++) {
@@ -32,14 +32,14 @@ public class Util {
                     calculhash = c.getValue();
                 }
             }
-            if(calculhash != null && estimatedHash.equals(calculhash)) {
+            if (calculhash != null && estimatedHash.equals(calculhash)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean login(HttpServletRequest req, HttpServletResponse resp){
+    public static boolean login(HttpServletRequest req, HttpServletResponse resp) {
         try {
             properties.load(RefreshServlet.class.getResourceAsStream("/config.properties"));
         } catch (IOException e) {
@@ -60,7 +60,12 @@ public class Util {
         }
     }
 
-    public static String getHash(String txt) {
+    public static void logout(HttpServletResponse resp) {
+        Cookie c = new Cookie("hash", "");
+        resp.addCookie(c);
+    }
+
+    private static String getHash(String txt) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(txt.getBytes());
