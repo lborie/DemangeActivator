@@ -2,19 +2,23 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>refresh</servlet-name>
-        <servlet-class>fr.bodul.demange.RefreshServlet</servlet-class>
+        <servlet-class>fr.bodul.demange.batch.RefreshServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>display</servlet-name>
-        <servlet-class>fr.bodul.demange.DisplayServlet</servlet-class>
+        <servlet-class>fr.bodul.demange.front.DisplayServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>admin</servlet-name>
-        <servlet-class>fr.bodul.demange.AdminServlet</servlet-class>
+        <servlet-class>fr.bodul.demange.front.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>photo</servlet-name>
+        <servlet-class>fr.bodul.demange.front.SpyServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>logout</servlet-name>
-        <servlet-class>fr.bodul.demange.LogoutServlet</servlet-class>
+        <servlet-class>fr.bodul.demange.front.LogoutServlet</servlet-class>
     </servlet>
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>photo</servlet-name>
+        <url-pattern>/photo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>logout</servlet-name>

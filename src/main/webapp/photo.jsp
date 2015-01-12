@@ -2,21 +2,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="fr.bodul.demange.dao.Faction" %>
+<%@ page import="fr.bodul.demange.dao.Spy" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
-    List<Character> characters = (List<Character>) request.getAttribute("characters");
-    if (characters == null) {
-        characters = new ArrayList<Character>();
-    }
-
-    List<Faction> factions = (List<Faction>) request.getAttribute("factions");
-    if (factions == null) {
-        factions = new ArrayList<Faction>();
-    }
-
-    Object factionId = request.getAttribute("factionId");
+    Spy photo = (Spy) request.getAttribute("photo");
 %>
 
 <html>
@@ -39,11 +30,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Demange activator</a>
+            <a class="navbar-brand" href="display">Demange activator</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li><a href="display">Accueil</a></li>
+                <li class="active"><a href="#">Photo</a></li>
+                <li><a href="admin">Administration</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="logout">Déconnexion</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
@@ -51,14 +47,7 @@
 </div>
 <div class="container">
 
-    <form class="form-signin" role="form" action="display" method="POST">
-        <h2 class="form-signin-heading">Authentification</h2>
-        <label for="login" class="sr-only">Login</label>
-        <input type="text" id="login" name="login" class="form-control" placeholder="Login" required autofocus>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-    </form>
+    <%= photo.getContent() %>
 
 </div> <!-- /container -->
 
@@ -66,11 +55,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="js/jouer.js"></script>
 <script>
     $('#presentation a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
-    })
+    });
+    var case_bloqued = 1;
+    case_block();
 </script>
 </body>
 </html>

@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package fr.bodul.demange;
+package fr.bodul.demange.batch;
 
 import com.google.appengine.repackaged.com.google.common.base.Function;
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
-import com.google.appengine.repackaged.com.google.common.collect.Maps;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
+import fr.bodul.demange.dao.Character;
+import fr.bodul.demange.dao.Faction;
+import fr.bodul.demange.dao.GenericDao;
+import fr.bodul.demange.dao.Spy;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -30,6 +32,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,12 +57,10 @@ import static com.google.common.collect.Iterables.filter;
 
 public class RefreshServlet extends HttpServlet {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private final static Properties properties = new Properties();
-
     private final static String DEMANGE_URL = "http://www.demange-le-jeu.com/demange-v2/perso_events_view.php?id_perso=";
     private final static String DEMANGE_LOGGING = "http://www.demange-le-jeu.com/demange-v2/joueur_connexion.php";
+    private final static String DEMANGE_PLAYER_VISU = "http://www.demange-le-jeu.com/demange-v2/jouer.php?index_perso=3";
     private final static String EXPERIENCE = "Expérience :";
     private final static String MATRICULE = "Matricule :";
     private final static String START_CONTAINER = "<span class=\"clair\">";
@@ -67,7 +70,7 @@ public class RefreshServlet extends HttpServlet {
     private final static String START_FACTION = "<a href=\"faction_presentation.php?id_faction=";
     private final static String START_FACTION_NAME = "target=\"_self\">";
     private final static List<String> MATRICULES = new ArrayList<>();
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private boolean mailSent = false;
 
     {
@@ -135,6 +138,21 @@ public class RefreshServlet extends HttpServlet {
         final HttpClient httpClient = HttpClients.createDefault();
         mailSent = false;
 
+        // Logging
+        HttpPost httpPost = new HttpPost(DEMANGE_LOGGING);
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("joueur_email", (String) properties.get("credentials.mail")));
+        params.add(new BasicNameValuePair("code", (String) properties.get("credentials.code")));
+        params.add(new BasicNameValuePair("connexion", "Connexion"));
+        params.add(new BasicNameValuePair("page_from", "/demange-v2/joueur_accueil.php"));
+        httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        httpClient.execute(httpPost);
+
+        extractCharacters(httpClient);
+        extractScreenShot(httpClient);
+    }
+
+    private void extractCharacters(HttpClient httpClient) throws IOException {
         GenericDao<Character> daoCharacters = new GenericDao<>(Character.class);
         GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
         List<Character> characters = daoCharacters.getEntities();
@@ -153,15 +171,6 @@ public class RefreshServlet extends HttpServlet {
             }
         }));
 
-        // Logging
-        HttpPost httpPost = new HttpPost(DEMANGE_LOGGING);
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("joueur_email", (String) properties.get("credentials.mail")));
-        params.add(new BasicNameValuePair("code", (String) properties.get("credentials.code")));
-        params.add(new BasicNameValuePair("connexion", "Connexion"));
-        params.add(new BasicNameValuePair("page_from", "/demange-v2/joueur_accueil.php"));
-        httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-        httpClient.execute(httpPost);
 
         for (Long matricule : charsByMatricules.keySet()) {
             String matriculeString = String.valueOf(matricule);
@@ -205,6 +214,30 @@ public class RefreshServlet extends HttpServlet {
         }
 
         daoCharacters.insertEntities(new ArrayList<>(charsByMatricules.values()));
+    }
+
+    private void extractScreenShot(HttpClient httpClient) throws IOException {
+        GenericDao<Spy> daoSpys = new GenericDao<>(Spy.class);
+        Spy spy = new Spy();
+        spy.setSpyId(3L);
+        HttpGet httpGet = new HttpGet(DEMANGE_PLAYER_VISU);
+        HttpResponse response = httpClient.execute(httpGet);
+        if (response.getStatusLine().getStatusCode() == 200) {
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
+            response.getEntity().getContent().close();
+            writer.close();
+            String htmlElement = writer.toString();
+            htmlElement = htmlElement.replaceAll("\\.\\./img/", "http://www.demange-le-jeu.com/img/");
+            htmlElement = htmlElement.replaceAll("\"\\./", "http://www.demange-le-jeu.com/demange-v2/");
+            Document document = Jsoup.parse(htmlElement);
+            Element damier = document.getElementById("damier");
+            spy.setContent(damier.html());
+        } else {
+            logger.warn("Warning, status code : {}", response.getStatusLine().getStatusCode());
+        }
+
+        daoSpys.insertEntity(spy);
     }
 
     Character extractCharacter(String htmlResponse) {

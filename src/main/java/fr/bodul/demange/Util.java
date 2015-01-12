@@ -1,5 +1,6 @@
 package fr.bodul.demange;
 
+import fr.bodul.demange.batch.RefreshServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

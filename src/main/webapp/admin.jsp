@@ -1,7 +1,7 @@
-<%@ page import="fr.bodul.demange.Character" %>
+<%@ page import="fr.bodul.demange.dao.Character" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="fr.bodul.demange.Faction" %>
+<%@ page import="fr.bodul.demange.dao.Faction" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -44,6 +44,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="display">Accueil</a></li>
+                <li><a href="photo">Photo</a></li>
                 <li class="active"><a href="#">Administration</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

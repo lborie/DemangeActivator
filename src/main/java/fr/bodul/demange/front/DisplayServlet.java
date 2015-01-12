@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package fr.bodul.demange;
+package fr.bodul.demange.front;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import fr.bodul.demange.Util;
+import fr.bodul.demange.dao.*;
+import fr.bodul.demange.dao.Character;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +61,7 @@ public class DisplayServlet extends HttpServlet {
     }
 
     private void displayPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        GenericDao<Character> dao = new GenericDao<>(Character.class);
+        GenericDao<fr.bodul.demange.dao.Character> dao = new GenericDao<>(Character.class);
         List<Character> characterList = dao.getEntities();
 
         characterList = Lists.newArrayList(Iterables.filter(characterList, new Predicate<Character>() {

@@ -1,4 +1,4 @@
-package fr.bodul.demange;
+package fr.bodul.demange.dao;
 
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;

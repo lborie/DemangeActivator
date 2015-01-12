@@ -1,4 +1,4 @@
-package fr.bodul.demange;
+package fr.bodul.demange.dao;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;

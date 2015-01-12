@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package fr.bodul.demange;
+package fr.bodul.demange.front;
+
+import fr.bodul.demange.Util;
+import fr.bodul.demange.dao.GenericDao;
+import fr.bodul.demange.dao.Spy;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,12 +26,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LogoutServlet extends HttpServlet {
+public class SpyServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
-        Util.logout(resp);
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        if (Util.isLogged(req)) {
+            GenericDao<Spy> dao = new GenericDao<>(Spy.class);
+            req.setAttribute("photo", dao.getEntityById(3L));
+            req.getRequestDispatcher("/photo.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        }
+
     }
 }

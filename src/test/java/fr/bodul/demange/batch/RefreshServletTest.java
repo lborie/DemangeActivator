@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package fr.bodul.demange;
+package fr.bodul.demange.batch;
 
 import com.google.appengine.repackaged.com.google.common.io.Files;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
 import com.google.common.io.Resources;
+import fr.bodul.demange.batch.RefreshServlet;
+import fr.bodul.demange.dao.*;
 import junit.framework.Assert;
 import org.apache.commons.io.Charsets;
 import org.junit.After;
@@ -31,7 +33,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import static junit.framework.Assert.assertEquals;
@@ -76,7 +77,7 @@ public class RefreshServletTest {
     @Test
     public void testExtractCharacter() throws IOException {
         RefreshServlet servlet = new RefreshServlet();
-        Character exampleCharacter = servlet.extractCharacter(Files.toString(new File(Resources.getResource("events.html").getPath()), Charsets.UTF_8));
+        fr.bodul.demange.dao.Character exampleCharacter = servlet.extractCharacter(Files.toString(new File(Resources.getResource("events.html").getPath()), Charsets.UTF_8));
         assertEquals("Kanithael", exampleCharacter.getName());
         assertEquals(547, exampleCharacter.getCurrentExperience().intValue());
         assertEquals(2022, exampleCharacter.getMatricule().intValue());

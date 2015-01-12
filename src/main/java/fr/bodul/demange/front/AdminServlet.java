@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package fr.bodul.demange;
+package fr.bodul.demange.front;
+
+import fr.bodul.demange.Util;
+import fr.bodul.demange.dao.*;
+import fr.bodul.demange.dao.Character;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +37,7 @@ public class AdminServlet extends HttpServlet {
 
         if (Util.isLogged(req)) {
             try {
-                GenericDao<Character> daoCharacters = new GenericDao<>(Character.class);
+                GenericDao<fr.bodul.demange.dao.Character> daoCharacters = new GenericDao<>(Character.class);
                 if (req.getParameter("addMatriculeAction") != null && req.getParameter("addMatricule") != null) {
                     Long matriculeToAdd = Long.valueOf(req.getParameter("addMatricule"));
                     Character character = daoCharacters.getEntityById(matriculeToAdd);

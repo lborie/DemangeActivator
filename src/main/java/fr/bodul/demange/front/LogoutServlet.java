@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Google Inc. All Rights Reserved.
+ * Copyright 2012 Google Inc. All Rights Reserved. 
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,22 @@
  * limitations under the License.
  */
 
-package fr.bodul.demange;
+package fr.bodul.demange.front;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import fr.bodul.demange.Util;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CleanServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
-
-        GenericDao<Character> daoCharacters = new GenericDao<>(Character.class);
-        GenericDao<Faction> daoFactions = new GenericDao<>(Faction.class);
-        List<Character> characters = daoCharacters.getEntities();
-        List<Faction> factions = daoFactions.getEntities();
-
-        List<Faction> factionsToClean = new ArrayList<>();
-
-
-        for (Faction faction : factions) {
-
-        }
-
+            throws IOException, ServletException {
+        Util.logout(resp);
+        req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
 }
