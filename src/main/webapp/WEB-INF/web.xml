@@ -5,6 +5,10 @@
         <servlet-class>fr.bodul.demange.batch.RefreshServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>activation</servlet-name>
+        <servlet-class>fr.bodul.demange.batch.ActivationServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>display</servlet-name>
         <servlet-class>fr.bodul.demange.front.DisplayServlet</servlet-class>
     </servlet>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>refresh</servlet-name>
         <url-pattern>/refresh</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>activation</servlet-name>
+        <url-pattern>/activation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>display</servlet-name>

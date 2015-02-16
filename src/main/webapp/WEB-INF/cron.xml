@@ -5,4 +5,10 @@
         <description>Repopulate activation time</description>
         <schedule>every 5 minutes</schedule>
     </cron>
+    <cron>
+        <url>/activation</url>
+        <description>Activate all days, at 22:30PM</description>
+        <schedule>every day 22:30</schedule>
+        <timezone>Europe/Paris</timezone>
+    </cron>
 </cronentries>

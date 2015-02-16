@@ -198,12 +198,12 @@ public class RefreshServlet extends HttpServlet {
 
                 if (charsByMatricules.get(current.getMatricule()) == null || charsByMatricules.get(current.getMatricule()).getName() == null) {
                     logger.info("New Character found");
-                    current.setActivationDate(new Date());
+                    current.setActivationDate(hourPlusFiveMinutes.getTime());
                     charsByMatricules.put(current.getMatricule(), current);
                 } else if (current.getCurrentExperience() - charsByMatricules.get(current.getMatricule()).getCurrentExperience() == 1
                         && (hourPlusFiveMinutes.get(Calendar.HOUR_OF_DAY) % 2 == 0)
                         && (hourPlusFiveMinutes.get(Calendar.MINUTE) < 15)) {
-                    Date activationDate = new Date();
+                    Date activationDate = hourPlusFiveMinutes.getTime();
                     logger.info("New Activation Date for matricule {} : {}", matriculeString, activationDate);
                     current.setActivationDate(activationDate);
                 } else {
