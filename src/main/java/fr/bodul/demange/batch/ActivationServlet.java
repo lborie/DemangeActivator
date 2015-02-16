@@ -59,7 +59,8 @@ public class ActivationServlet extends HttpServlet {
 
         for (int i = 0; i < 5; i++) {
             HttpGet httpGet = new HttpGet(DEMANGE_PLAYER_ACTIVATE + i);
-            httpClient.execute(httpGet);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            httpResponse.getEntity().getContent().close();
         }
     }
 }
