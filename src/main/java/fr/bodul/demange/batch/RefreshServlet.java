@@ -193,13 +193,16 @@ public class RefreshServlet extends HttpServlet {
                 }));
                 daoFactions.insertEntities(factions);
 
+                Calendar hourPlusFiveMinutes = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+                hourPlusFiveMinutes.add(Calendar.MINUTE, 5);
+
                 if (charsByMatricules.get(current.getMatricule()) == null || charsByMatricules.get(current.getMatricule()).getName() == null) {
                     logger.info("New Character found");
                     current.setActivationDate(new Date());
                     charsByMatricules.put(current.getMatricule(), current);
                 } else if (current.getCurrentExperience() - charsByMatricules.get(current.getMatricule()).getCurrentExperience() == 1
-                        && (Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY) % 2 == 0)
-                        && (Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.MINUTE) < 15)) {
+                        && (hourPlusFiveMinutes.get(Calendar.HOUR_OF_DAY) % 2 == 0)
+                        && (hourPlusFiveMinutes.get(Calendar.MINUTE) < 15)) {
                     Date activationDate = new Date();
                     logger.info("New Activation Date for matricule {} : {}", matriculeString, activationDate);
                     current.setActivationDate(activationDate);

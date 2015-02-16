@@ -97,8 +97,10 @@ public class RefreshServletTest {
     @Test
     @Ignore
     public void testActivationDate() {
+        Calendar hourPlusFiveMinutes = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        hourPlusFiveMinutes.add(Calendar.MINUTE, 5);
         System.out.print(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY));
-        System.out.print(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.MINUTE));
+        System.out.print(hourPlusFiveMinutes.get(Calendar.MINUTE));
         Assert.assertTrue(Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).get(Calendar.HOUR_OF_DAY) % 2 == 0);
     }
 
