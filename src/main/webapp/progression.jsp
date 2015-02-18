@@ -92,14 +92,18 @@
                 borderWidth: 0
             },
             series: [
-                <%for (Character personnage : characters) {
-                SortedMap<String, Integer> experience = new TreeMap<String, Integer>(personnage.getExperience());
-                    Collection<Integer> experienceInteger = experience.values();
-                    String data = Joiner.on(',').join(experienceInteger);
+                <%
+                    int i = 0;
+                    for (Character personnage : characters) {
+                        i++;
+                        SortedMap<String, Integer> experience = new TreeMap<String, Integer>(personnage.getExperience());
+                            Collection<Integer> experienceInteger = experience.values();
+                            String data = Joiner.on(',').join(experienceInteger);
                 %>
                 {
                     name: "<%= personnage.getName() %>",
-                    data: [<%=data%>]
+                    data: [<%=data%>]<% if(i > 10 && i != characters.size()){%>,
+                    visible: false<%}%>
                 },
                 <% } %>
                ]

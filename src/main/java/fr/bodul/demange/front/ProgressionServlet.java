@@ -59,6 +59,12 @@ public class ProgressionServlet extends HttpServlet {
                 return (character.isActive() == null || character.isActive()) && character.getName() != null;
             }
         }));
+        Collections.sort(characterList, new Comparator<Character>() {
+            @Override
+            public int compare(Character character, Character t1) {
+                return t1.getCurrentExperience().compareTo(character.getCurrentExperience());
+            }
+        });
         req.setAttribute("characters", characterList);
 
         req.getRequestDispatcher("/progression.jsp").forward(req, resp);
