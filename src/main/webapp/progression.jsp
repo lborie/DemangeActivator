@@ -67,10 +67,10 @@
             xAxis: {
                 categories: [<% Iterator<String> iterator = dates.iterator();
         while(iterator.hasNext()){
-            String libelle = iterator.next();
+            String libelle = "\"" + iterator.next() + "\"";
             if (iterator.hasNext()) libelle = libelle + ",";
 
-        %>"<%=libelle %>"<%}%>]
+        %><%=libelle %><%}%>]
             },
             yAxis: {
                 title: {
