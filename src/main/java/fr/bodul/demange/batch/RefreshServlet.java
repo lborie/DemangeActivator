@@ -207,8 +207,10 @@ public class RefreshServlet extends HttpServlet {
                     Date activationDate = hourPlusFiveMinutes.getTime();
                     logger.info("New Activation Date for matricule {} : {}", matriculeString, activationDate);
                     current.setActivationDate(activationDate);
+                    current.setExperience(charsByMatricules.get(current.getMatricule()).getExperience());
                 } else {
                     current.setActivationDate(charsByMatricules.get(current.getMatricule()).getActivationDate());
+                    current.setExperience(charsByMatricules.get(current.getMatricule()).getExperience());
                 }
 
                 if (current.getExperience() == null){
