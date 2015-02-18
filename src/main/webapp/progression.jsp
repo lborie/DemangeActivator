@@ -44,50 +44,68 @@
     </div>
 </div>
 <div class="container">
-
-    <canvas id="myChart" width="400" height="400"></canvas>
-
+    <div id="myChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div> <!-- /container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="js/Chart.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
 <script>
     $('#presentation a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
     })
-    Chart.defaults.global.responsive = true;
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var data = {
-        labels: [<% Iterator<String> iterator = dates.iterator();
+
+    $(function () {
+        $('#myChart').highcharts({
+            title: {
+                text: 'Progression en expérience dans le temps',
+                x: -20 //center
+            },
+            xAxis: {
+                categories: [<% Iterator<String> iterator = dates.iterator();
         while(iterator.hasNext()){
             String libelle = iterator.next();
             if (iterator.hasNext()) libelle = libelle + ",";
 
-        %>"<%=libelle %>"<%}%>,"15/02/19", "15/02/20"],
-        datasets: [
+        %>"<%=libelle %>"<%}%>]
+            },
+            yAxis: {
+                title: {
+                    text: 'Expérience'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: 'exp'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [
                 <%for (Character personnage : characters) {
                 SortedMap<String, Integer> experience = new TreeMap<String, Integer>(personnage.getExperience());
                     Collection<Integer> experienceInteger = experience.values();
                     String data = Joiner.on(',').join(experienceInteger);
                 %>
-            {
-                label: "<%= personnage.getName() %>",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [<%=data%>, 2400, 2500]
-            },
-            <% } %>
-        ]
-    };
-    var myLineChart = new Chart(ctx).Line(data, {});
+                {
+                    name: "<%= personnage.getName() %>",
+                    data: [<%=data%>]
+                },
+                <% } %>
+               ]
+        });
+    });
+
 </script>
 </body>
 </html>

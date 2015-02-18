@@ -45,6 +45,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="display">Accueil</a></li>
                 <li><a href="photo">Photo</a></li>
+                <li><a href="progression">Progression</a></li>
                 <li class="active"><a href="#">Administration</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
