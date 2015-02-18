@@ -19,6 +19,7 @@ public class Character {
     private Integer currentExperience;
     private Date activationDate;
     private List<Long> factionsId;
+    private Map<String, Integer> experience;
     private Boolean active;
 
     public Long getMatricule() {
@@ -106,5 +107,13 @@ public class Character {
 
     public void setActive(Boolean isActive) {
         this.active = isActive;
+    }
+
+    public Map<String, Integer> getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Map<String, Integer> experience) {
+        this.experience = experience;
     }
 }

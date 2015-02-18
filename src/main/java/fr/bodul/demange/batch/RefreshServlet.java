@@ -50,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.google.appengine.repackaged.com.google.common.collect.Maps.uniqueIndex;
@@ -209,6 +210,11 @@ public class RefreshServlet extends HttpServlet {
                 } else {
                     current.setActivationDate(charsByMatricules.get(current.getMatricule()).getActivationDate());
                 }
+
+                if (current.getExperience() == null){
+                    current.setExperience(new HashMap<String, Integer>());
+                }
+                current.getExperience().put(new SimpleDateFormat("yy/MM/dd").format(hourPlusFiveMinutes.getTime()), current.getCurrentExperience());
 
                 charsByMatricules.put(current.getMatricule(), current);
             } else {
