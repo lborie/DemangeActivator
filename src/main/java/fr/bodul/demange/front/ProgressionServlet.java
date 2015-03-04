@@ -16,7 +16,9 @@
 
 package fr.bodul.demange.front;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import fr.bodul.demange.Util;
@@ -29,9 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Lists.newArrayList;
@@ -67,6 +67,35 @@ public class ProgressionServlet extends HttpServlet {
         });
         req.setAttribute("characters", characterList);
 
+        List<Character> progressionList = new ArrayList<>(characterList);
+        Collections.sort(progressionList, new Comparator<Character>() {
+            @Override
+            public int compare(Character character, Character t1) {
+                return progression(t1).compareTo(progression(character));
+            }
+        });
+        if (progressionList.size() > 9){
+            progressionList = progressionList.subList(0, 9);
+        }
+        List<Integer> experience = Lists.newArrayList(Collections2.transform(progressionList, new Function<Character, Integer>() {
+            @Override
+            public Integer apply(Character character) {
+                return progression(character);
+            }
+        }));
+        req.setAttribute("progressionsNames", progressionList);
+        req.setAttribute("progressionsExperiences", experience);
+
         req.getRequestDispatcher("/progression.jsp").forward(req, resp);
+    }
+
+    private Integer progression(Character character) {
+        Map<String, Integer> experienceMap = character.getExperience();
+        List<String> dates = new ArrayList<>(experienceMap.keySet());
+        Collections.sort(dates);
+        Integer lastExperience = experienceMap.get(dates.get(dates.size() - 1));
+        Integer firstExperience = (experienceMap.size() > 27)? experienceMap.get(dates.get(dates.size() - 27)): experienceMap.get(dates.get(0));
+
+        return lastExperience - firstExperience;
     }
 }

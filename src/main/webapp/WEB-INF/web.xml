@@ -28,6 +28,10 @@
         <servlet-name>progression</servlet-name>
         <servlet-class>fr.bodul.demange.front.ProgressionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>clean</servlet-name>
+        <servlet-class>fr.bodul.demange.batch.CleanServlet</servlet-class>
+    </servlet>
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>progression</servlet-name>
         <url-pattern>/progression</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>clean</servlet-name>
+        <url-pattern>/clean</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>display</welcome-file>

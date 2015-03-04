@@ -7,6 +7,8 @@
 
 <%
     List<Character> characters = (List<Character>) request.getAttribute("characters");
+    List<Character> progressionsNames = (List<Character>) request.getAttribute("progressionsNames");
+    List<Integer> progressionsExperiences = (List<Integer>) request.getAttribute("progressionsExperiences");
     Set<String> dates = new TreeSet<String>(characters.get(0).getExperience().keySet());
 %>
 
@@ -45,6 +47,8 @@
 </div>
 <div class="container">
     <div id="myChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <br/><br/><br/>
+    <div id="myProgression" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div> <!-- /container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -107,6 +111,55 @@
                 },
                 <% } %>
                ]
+        });
+
+        $('#myProgression').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Plus gros Tap Case sur 28 jours'
+            },
+            xAxis: {
+                categories: [<% Iterator<Character> progressionName = progressionsNames.iterator();
+        while(progressionName.hasNext()){
+            String libelle = "\"" + progressionName.next().getName() + "\"";
+            if (progressionName.hasNext()) libelle = libelle + ",";
+
+        %><%=libelle %><%}%>
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Experience'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: "Expérience",
+                    data: [<% Iterator<Integer> progressionEx = progressionsExperiences.iterator();
+        while(progressionEx.hasNext()){
+            String libelle = "" + progressionEx.next() + "";
+            if (progressionEx.hasNext()) libelle = libelle + ",";
+
+        %><%=libelle %><%}%>]
+                }
+            ]
         });
     });
 
