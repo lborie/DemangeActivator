@@ -59,13 +59,13 @@ public class ProgressionServlet extends HttpServlet {
                 return (character.isActive() == null || character.isActive()) && character.getName() != null;
             }
         }));
+
         Collections.sort(characterList, new Comparator<Character>() {
             @Override
             public int compare(Character character, Character t1) {
                 return t1.getCurrentExperience().compareTo(character.getCurrentExperience());
             }
         });
-        req.setAttribute("characters", characterList);
 
         List<Character> progressionList = new ArrayList<>(characterList);
         Collections.sort(progressionList, new Comparator<Character>() {
@@ -75,7 +75,7 @@ public class ProgressionServlet extends HttpServlet {
             }
         });
         if (progressionList.size() > 9){
-            progressionList = progressionList.subList(0, 9);
+            progressionList = progressionList.subList(0, 10);
         }
         List<Integer> experience = Lists.newArrayList(Collections2.transform(progressionList, new Function<Character, Integer>() {
             @Override
@@ -85,6 +85,19 @@ public class ProgressionServlet extends HttpServlet {
         }));
         req.setAttribute("progressionsNames", progressionList);
         req.setAttribute("progressionsExperiences", experience);
+
+        Set<String> dates = new TreeSet<>();
+        for (Character character : characterList) {
+            dates.addAll(character.getExperience().keySet());
+        }
+        for (Character character : characterList) {
+            for (String date : dates) {
+                if (!character.getExperience().containsKey(date)) {
+                    character.getExperience().put(date, null);
+                }
+            }
+        }
+        req.setAttribute("characters", characterList);
 
         req.getRequestDispatcher("/progression.jsp").forward(req, resp);
     }

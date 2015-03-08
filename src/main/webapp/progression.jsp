@@ -102,11 +102,15 @@
                         i++;
                         SortedMap<String, Integer> experience = new TreeMap<String, Integer>(personnage.getExperience());
                             Collection<Integer> experienceInteger = experience.values();
-                            String data = Joiner.on(',').join(experienceInteger);
+                            String data = "";
+                            for (Integer exp : experienceInteger) {
+                                data += (exp != null)? exp.toString() : "null";
+                                data += ",";
+                            }
                 %>
                 {
                     name: "<%= personnage.getName() %>",
-                    data: [<%=data%>]<% if(i > 10 && i != characters.size()){%>,
+                    data: [<%=data%>]<% if(i > 10){%>,
                     visible: false<%}%>
                 },
                 <% } %>
