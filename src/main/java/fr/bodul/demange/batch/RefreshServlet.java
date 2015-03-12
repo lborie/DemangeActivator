@@ -213,7 +213,7 @@ public class RefreshServlet extends HttpServlet {
                     current.setExperience(charsByMatricules.get(current.getMatricule()).getExperience());
                 }
 
-                if (current.getExperience() == null){
+                if (current.getExperience() == null) {
                     current.setExperience(new HashMap<String, Integer>());
                 }
                 current.getExperience().put(new SimpleDateFormat("yy/MM/dd").format(hourPlusFiveMinutes.getTime()), current.getCurrentExperience());
@@ -277,13 +277,16 @@ public class RefreshServlet extends HttpServlet {
         List<Faction> factions = new ArrayList<>();
         try {
             while (htmlResponse.contains(START_FACTION)) {
-                Faction currentFaction = new Faction();
-                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION) + START_FACTION.length());
-                currentFaction.setFactionId(Long.valueOf(htmlResponse.substring(0, htmlResponse.indexOf('"'))));
-
-                htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION_NAME) + START_FACTION_NAME.length());
-                currentFaction.setName(htmlResponse.substring(0, htmlResponse.indexOf(" : ")));
-                factions.add(currentFaction);
+                try {
+                    Faction currentFaction = new Faction();
+                    htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION) + START_FACTION.length());
+                    currentFaction.setFactionId(Long.valueOf(htmlResponse.substring(0, htmlResponse.indexOf('"'))));
+                    htmlResponse = htmlResponse.substring(htmlResponse.indexOf(START_FACTION_NAME) + START_FACTION_NAME.length());
+                    currentFaction.setName(htmlResponse.substring(0, htmlResponse.indexOf(" : ")));
+                    factions.add(currentFaction);
+                } catch (NumberFormatException ex) {
+                    logger.info("Faction inexistante");
+                }
             }
         } catch (StringIndexOutOfBoundsException exception) {
             // Maybe a subscription problem : sending a mail
