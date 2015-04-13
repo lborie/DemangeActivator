@@ -7,8 +7,8 @@
     </cron>
     <cron>
         <url>/activation</url>
-        <description>Activate all days, at 22:30PM</description>
-        <schedule>every day 22:30</schedule>
+        <description>Activate all days, at 19:30PM</description>
+        <schedule>every day 19:30</schedule>
         <timezone>Europe/Paris</timezone>
     </cron>
 </cronentries>
